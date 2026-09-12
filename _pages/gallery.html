@@ -1,0 +1,29 @@
+<header class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow center reveal">The Collection</span>
+        <h1 class="display-xl reveal" style="--d:.1s">The Art <span class="grad-gold serif-it">Gallery</span></h1>
+        <p class="lede reveal" style="--d:.2s">Explore a lifetime of imagination, intention and creativity.</p>
+        <p class="daily-note center reveal" style="--d:.3s;margin:18px auto 0;max-width:52ch">Twenty-six featured works shown here — and hundreds more waiting in Orchid's archive.</p>
+      </div>
+    </header>
+
+    <section class="sec sec-tight" style="padding-top:10px" aria-labelledby="galleryTitle">
+      <div class="wrap">
+        <div class="filter-bar" id="filterBar">
+          <button class="chip active" data-filter="all">All Works</button>
+          <button class="chip" data-filter="mandala">Mandalas</button>
+          <button class="chip" data-filter="landscape">Digital Landscapes</button>
+          <button class="chip" data-filter="abstract">Abstract Art</button>
+          <button class="chip" data-filter="featured">Featured Works</button>
+          <button class="chip" data-filter="newest">Newest Creations</button>
+        </div>
+        <p class="art-result-count" id="galCount"></p>
+        <div class="masonry" id="galleryGrid"></div>
+        <div class="load-more-wrap">
+          <button class="btn btn-ghost" id="loadMore">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Load More Artwork
+          </button>
+        </div>
+      </div>
+    </section>

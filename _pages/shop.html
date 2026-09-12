@@ -1,0 +1,38 @@
+<header class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow center reveal">The Shop</span>
+        <h1 class="display-xl reveal" style="--d:.1s">Wear the Magic.<br><span class="grad-gold serif-it">Live the Art.</span></h1>
+        <p class="lede reveal" style="--d:.2s">Every artwork becomes something you can hold — prints, apparel, decor and gifts, made to order just for you.</p>
+      </div>
+    </header>
+
+    <section class="sec sec-tight" style="padding-top:10px" aria-labelledby="shopTitle">
+      <div class="wrap">
+        <div style="text-align:center;margin-bottom:26px" id="artFilterBanner" hidden>
+          <div class="glass" style="padding:18px 26px;display:inline-flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center">
+            <span class="lb-cat">Showing products featuring</span>
+            <b class="serif-it" style="font-size:1.2rem" id="artBannerName"></b>
+            <button class="btn btn-ghost btn-sm" id="clearArtFilter">Show everything</button>
+          </div>
+        </div>
+        <div class="filter-bar" id="catBar">
+          <button class="chip active" data-cat="all">All Products</button>
+          <button class="chip" data-cat="prints">Art Prints</button>
+          <button class="chip" data-cat="canvas">Canvas &amp; Wall Art</button>
+          <button class="chip" data-cat="tshirts">T-Shirts</button>
+          <button class="chip" data-cat="hoodies">Hoodies</button>
+          <button class="chip" data-cat="decor">Home Decor</button>
+          <button class="chip" data-cat="accessories">Accessories</button>
+          <button class="chip" data-cat="gifts">Gifts</button>
+          <button class="chip" data-cat="featured">Featured</button>
+        </div>
+        <p class="art-result-count" id="shopCount"></p>
+        <div class="shop-grid" id="shopGrid"></div>
+        <div class="load-more-wrap">
+          <button class="btn btn-ghost" id="shopMore">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Load More Products
+          </button>
+        </div>
+      </div>
+    </section>

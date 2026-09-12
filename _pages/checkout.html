@@ -1,0 +1,111 @@
+<header class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow center">Secure Checkout</span>
+        <h1 class="display-xl reveal" style="--d:.1s">Almost <span class="grad-gold serif-it">Yours</span></h1>
+        <p class="lede reveal" style="--d:.2s">Simple, distraction-free, and as calm as the art itself.</p>
+      </div>
+    </header>
+
+    <section class="sec sec-tight" style="padding-top:6px" aria-label="Checkout">
+      <div class="wrap">
+        <div class="co-grid">
+          <form id="checkoutForm" class="co-card glass" style="gap:28px">
+            <div>
+              <div class="step-num">01 — Contact</div>
+              <div style="height:14px"></div>
+              <div class="field">
+                <label for="ceMail">Email address</label>
+                <input id="ceMail" type="email" required placeholder="you@example.com" autocomplete="email">
+              </div>
+            </div>
+            <div>
+              <div class="step-num">02 — Shipping</div>
+              <div style="height:14px"></div>
+              <div class="form-2col">
+                <div class="field">
+                  <label for="cfName">First name</label>
+                  <input id="cfName" type="text" required placeholder="First name" autocomplete="given-name">
+                </div>
+                <div class="field">
+                  <label for="clName">Last name</label>
+                  <input id="clName" type="text" required placeholder="Last name" autocomplete="family-name">
+                </div>
+              </div>
+              <div class="field" style="margin-top:16px">
+                <label for="cAddr">Address</label>
+                <input id="cAddr" type="text" required placeholder="Street &amp; number" autocomplete="street-address">
+              </div>
+              <div class="form-2col" style="margin-top:16px">
+                <div class="field">
+                  <label for="cCity">City</label>
+                  <input id="cCity" type="text" required placeholder="City" autocomplete="address-level2">
+                </div>
+                <div class="field">
+                  <label for="cZip">Postal code</label>
+                  <input id="cZip" type="text" required placeholder="Postal code" autocomplete="postal-code">
+                </div>
+              </div>
+              <div class="form-2col" style="margin-top:16px">
+                <div class="field">
+                  <label for="cCountry">Country</label>
+                  <select id="cCountry">
+                    <option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option><option>India</option><option>Germany</option><option>France</option><option>Everywhere else</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="cPhone">Phone (optional)</label>
+                  <input id="cPhone" type="tel" placeholder="+1 555 000 0000" autocomplete="tel">
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="step-num">03 — Payment</div>
+              <div style="height:14px"></div>
+              <div class="pay-gate">
+                <button class="pg active" type="button" data-pg="card">💳 Card</button>
+                <button class="pg" type="button" data-pg="paypal">PayPal</button>
+                <button class="pg" type="button" data-pg="gpay">G Pay</button>
+              </div>
+              <div class="field" style="margin-top:16px">
+                <label for="cCard">Card number</label>
+                <input id="cCard" type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
+              </div>
+              <div class="form-2col" style="margin-top:16px">
+                <div class="field">
+                  <label for="cExp">Expiry</label>
+                  <input id="cExp" type="text" placeholder="MM / YY" autocomplete="cc-exp">
+                </div>
+                <div class="field">
+                  <label for="cCvc">CVC</label>
+                  <input id="cCvc" type="text" inputmode="numeric" placeholder="123" autocomplete="cc-csc">
+                </div>
+              </div>
+              <p class="daily-note" style="font-size:.78rem;margin-top:14px">Demo checkout — connect your real payment provider here. No payment is taken.</p>
+            </div>
+            <div>
+              <div class="step-num">04 — Review &amp; Place</div>
+              <div style="height:14px"></div>
+              <div class="secure-badge">__LOCK__ Secure encrypted checkout</div>
+              <div style="margin-top:20px">
+                <button class="btn btn-gold btn-block" type="submit">Place Order &amp; Complete</button>
+              </div>
+              <div class="pay-gate" style="grid-template-columns:repeat(4,1fr);margin-top:16px">
+                <span class="pg">VISA</span><span class="pg">MC</span><span class="pg">AMEX</span><span class="pg">● ● ●</span>
+              </div>
+            </div>
+          </form>
+
+          <aside class="co-summary-card glass co-card" id="coSummary" aria-label="Order summary">
+            <h2>Order Summary</h2>
+            <div id="coLines"></div>
+            <div class="co-total">
+              <div class="r"><span>Subtotal</span><span id="coSub">$0.00</span></div>
+              <div class="r"><span>Shipping</span><span id="coShip">—</span></div>
+              <div class="r"><span>Estimated tax</span><span id="coTax">Computed at checkout</span></div>
+              <div class="r grand"><span>Total</span><span class="amnt" id="coTotal">$0.00</span></div>
+            </div>
+            <p class="daily-note" style="font-size:.76rem">Made to order · Printed &amp; fulfilled through our trusted print-on-demand partner · Free shipping over $65</p>
+          </aside>
+        </div>
+      </div>
+    </section>
