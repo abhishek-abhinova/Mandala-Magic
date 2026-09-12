@@ -1864,3 +1864,345 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   #heroArt { scale: none !important; }
   .scroll-progress { display: none !important; }
 }
+
+/* ==========================================================================
+   RESPONSIVE ENHANCEMENTS — Full device coverage
+   ========================================================================== */
+
+/* ── Fluid section padding ── */
+.sec, .sec-tight {
+  padding-left: clamp(16px, 4vw, 0px);
+  padding-right: clamp(16px, 4vw, 0px);
+}
+.wrap, .wrap-narrow {
+  padding-inline: clamp(16px, 4vw, 24px);
+}
+
+/* ── Hero: stack on mobile, side-by-side on desktop ── */
+@media (max-width: 900px) {
+  .hero {
+    min-height: 100svh;
+    padding-top: calc(var(--nav-h) + 20px);
+    padding-bottom: 40px;
+  }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+  .hero-copy { order: 1; }
+  .hero-art-wrap { order: 2; min-height: 0; }
+  .hero-title { font-size: clamp(2.8rem, 11vw, 5rem); }
+  .hero-sub { font-size: clamp(1.1rem, 4vw, 1.5rem); margin-inline: auto; }
+  .hero-text { margin-inline: auto; }
+  .hero-ctas { justify-content: center; gap: 12px; }
+  .hero-art { width: min(380px, 88vw); margin-inline: auto; }
+  .hero-art .art-frame { transform: none !important; }
+  .hero-art-wrap::after { width: min(480px, 96vw); }
+  .hero-stats { justify-content: center; font-size: 0.6rem; }
+  .scroll-hint { display: none; }
+}
+
+/* ── Nav: tighter on mid-size ── */
+@media (max-width: 1100px) and (min-width: 901px) {
+  .nav-links { gap: clamp(8px, 1.2vw, 18px); }
+  .nav-links a { font-size: 0.68rem; }
+  .nav-cta { display: none; }
+}
+
+/* ── Steps / workflow: single column on mobile ── */
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .steps-arrow {
+    transform: rotate(90deg);
+    padding: 4px 0;
+    justify-self: center;
+  }
+  .wstep { padding: 28px 22px; }
+}
+
+/* ── Daily mandala cols ── */
+@media (max-width: 900px) {
+  .daily-cols { grid-template-columns: 1fr; gap: 32px; }
+  .daily-art { max-width: 420px; margin-inline: auto; }
+  .daily-info { text-align: center; }
+  .daily-meta { justify-content: center; }
+  .daily-actions { justify-content: center; }
+  .daily-intention { text-align: left; }
+  .daily-note { margin-inline: auto; }
+}
+
+/* ── Collections grid ── */
+@media (max-width: 900px) {
+  .col-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (max-width: 560px) {
+  .col-grid { grid-template-columns: 1fr; }
+  .col-card { aspect-ratio: 4/3; }
+}
+
+/* ── Masonry gallery ── */
+@media (max-width: 900px) {
+  .masonry { columns: 2; column-gap: 16px; }
+  .masonry .art-card { margin-bottom: 16px; }
+}
+@media (max-width: 560px) {
+  .masonry { columns: 1; }
+}
+
+/* ── Testimonials ── */
+@media (max-width: 768px) {
+  .tes-grid { grid-template-columns: 1fr; gap: 16px; }
+  .tes-card { padding: 24px 20px; }
+}
+
+/* ── Love block ── */
+@media (max-width: 900px) {
+  .love-block {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: clamp(24px, 5vw, 40px);
+    text-align: center;
+  }
+  .love-block .products-avail { justify-content: center; }
+  .love-block > div:last-child { max-width: 360px; margin-inline: auto; }
+}
+
+/* ── Story grid ── */
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ── Footer ── */
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+  .foot-news { flex-direction: column; gap: 10px; }
+  .foot-news input { border-radius: 999px; width: 100%; }
+  .foot-news button { border-radius: 999px; width: 100%; }
+}
+
+/* ── Newsletter form ── */
+@media (max-width: 560px) {
+  .form-news { flex-direction: column; gap: 12px; }
+  .form-news .input { width: 100%; }
+  .form-news .btn { width: 100%; }
+  .news-card { padding: clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px); }
+}
+
+/* ── Social grid ── */
+@media (max-width: 900px) {
+  .soc-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+}
+@media (max-width: 560px) {
+  .soc-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+}
+@media (max-width: 380px) {
+  .soc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Featured strip ── */
+@media (max-width: 640px) {
+  .strip { grid-auto-columns: min(300px, 82vw); gap: 14px; padding: 12px 4px 22px; }
+}
+
+/* ── Cart drawer: bottom sheet on mobile ── */
+@media (max-width: 560px) {
+  .cart-drawer {
+    top: auto;
+    bottom: 0;
+    width: 100vw;
+    height: max(82dvh, 520px);
+    border-left: none;
+    border-top: 1px solid var(--stroke-soft);
+    border-radius: 24px 24px 0 0;
+    transform: translateY(100%);
+  }
+  .cart-drawer.open { transform: translateY(0); }
+  .cart-foot { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+}
+
+/* ── Lightbox: bottom sheet on mobile ── */
+@media (max-width: 560px) {
+  .lightbox { padding: 0; place-items: end center; }
+  .lb-card {
+    width: 100vw;
+    max-height: 90dvh;
+    border-radius: 24px 24px 0 0;
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .lb-art { min-height: 260px; }
+  .lb-info { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
+}
+
+/* ── Product detail ── */
+@media (max-width: 900px) {
+  .pd-grid { grid-template-columns: 1fr; gap: 28px; }
+  .pd-cta-row { flex-direction: column; }
+  .pd-cta-row .btn { width: 100%; }
+}
+
+/* ── Checkout ── */
+@media (max-width: 900px) {
+  .co-grid { grid-template-columns: 1fr; }
+  .co-summary-card { position: static; }
+  .form-2col { grid-template-columns: 1fr; }
+}
+
+/* ── Contact ── */
+@media (max-width: 768px) {
+  .cont-grid { grid-template-columns: 1fr; }
+}
+
+/* ── About metrics ── */
+@media (max-width: 640px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (max-width: 380px) {
+  .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Buttons: full-width on small phones ── */
+@media (max-width: 400px) {
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn { width: 100%; justify-content: center; }
+}
+
+/* ── Touch: always show overlays ── */
+@media (hover: none) {
+  .art-card-overlay { opacity: 1; background: var(--card-scrim); }
+  .art-card-overlay > *, .art-card-actions { transform: none; opacity: 1; }
+  .prod-cta { opacity: 1; transform: none; position: relative; left: auto; right: auto; bottom: auto; margin-top: 8px; }
+  .prod-whish { opacity: 1; transform: none; }
+  .col-card .visit { opacity: 1; transform: none; }
+  .soc-cell .ig-icon { opacity: 1; }
+  .btn { min-height: 52px; }
+  .chip { min-height: 46px; }
+  .icon-btn { width: 48px; height: 48px; }
+  .daily-prev:hover { transform: none; }
+}
+
+/* ── Marquee: slower on mobile ── */
+@media (max-width: 640px) {
+  .marquee-track { animation-duration: 24s; }
+  .marquee-track span { padding: 0 20px; gap: 20px; font-size: 0.65rem; }
+}
+
+/* ── Page hero (inner pages) ── */
+@media (max-width: 640px) {
+  .page-hero { padding-top: calc(var(--nav-h) + 24px); }
+  .page-hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
+}
+
+/* ── Filter bar: horizontal scroll on mobile ── */
+@media (max-width: 640px) {
+  .filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, #000 80%, transparent);
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-bar .chip { flex: none; }
+}
+
+/* ── Prevent font zoom on iOS inputs ── */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* ── Safe area insets for notched phones ── */
+.nav { padding-top: env(safe-area-inset-top); }
+.mmenu {
+  padding-top: calc(24px + env(safe-area-inset-top));
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  padding-left: max(8vw, env(safe-area-inset-left));
+  padding-right: max(8vw, env(safe-area-inset-right));
+}
+.toast-stack { bottom: calc(20px + env(safe-area-inset-bottom)); }
+.to-top { bottom: calc(22px + env(safe-area-inset-bottom)); right: calc(20px + env(safe-area-inset-right)); }
+
+/* ── Tablet landscape: 2-col hero ── */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .hero-inner { gap: 32px; }
+  .hero-title { font-size: clamp(3rem, 7vw, 5.5rem); }
+  .hero-art { width: min(420px, 46vw); }
+}
+
+/* ── Large screens ── */
+@media (min-width: 1400px) {
+  .hero-title { font-size: clamp(5rem, 7vw, 7.5rem); }
+  .col-grid { grid-template-columns: repeat(3, 1fr); }
+  .soc-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ── Smooth image rendering ── */
+img, svg { image-rendering: -webkit-optimize-contrast; }
+
+/* ── Prevent horizontal overflow globally ── */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* ── Art card media aspect ratio ── */
+.art-card-media {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.art-card-media svg,
+.art-card-media > div { width: 100%; height: 100%; }
+
+/* ── Product card: consistent height ── */
+.prod-media { aspect-ratio: 1; }
+
+/* ── Strip: hide scrollbar but keep scroll ── */
+.strip { scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.strip::-webkit-scrollbar { height: 4px; }
+
+/* ── Daily rail: thinner scrollbar ── */
+.daily-rail { scrollbar-width: thin; }
+.daily-rail::-webkit-scrollbar { width: 4px; }
+.daily-rail::-webkit-scrollbar-thumb { background: var(--stroke); border-radius: 4px; }
+
+/* ── Eyebrow: wrap on very small screens ── */
+@media (max-width: 360px) {
+  .eyebrow { font-size: 0.65rem; letter-spacing: 0.24em; }
+  .display-xl { font-size: clamp(2.4rem, 12vw, 3.2rem); }
+  .display-l { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .display-m { font-size: clamp(1.7rem, 9vw, 2.2rem); }
+}
+
+/* ── Mmenu: close on outside tap ── */
+.mmenu { cursor: default; }
+.mmenu a { cursor: pointer; }
+
+/* ── Tappable area minimum ── */
+@media (hover: none) {
+  a, button { min-height: 44px; min-width: 44px; }
+  .nav-links a { min-height: unset; min-width: unset; }
+  .foot-col a { min-height: 40px; display: flex; align-items: center; }
+}
+
+/* ── Reduce motion: disable all animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .hero::before { animation: none; }
+  .hero-art { animation: none; }
+  .hero-art-wrap::after { animation: none; }
+  .page-bg-orb { animation: none; }
+  .daily-art .halo-ring { animation: none; }
+  .scroll-hint .line { animation: none; }
+}
