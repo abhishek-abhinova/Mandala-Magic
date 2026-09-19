@@ -9,12 +9,13 @@
   <meta property="og:title" content="Mandala Magic by OM — Art Created With Intention">
   <meta property="og:description" content="Original Mandalas, digital landscapes and inspired everyday products by artist Orchid Mandala. Shop the collection.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="logo.png">
+  <meta property="og:image" content="assets/img/art/cosmic-bloom.svg">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Corinthia:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{var t=JSON.parse(localStorage.getItem('mm_theme'));if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -27,6 +28,12 @@
   </script>
 </head>
 <body data-page="home">
+
+  <div class="preloader is-active" id="preloader" aria-hidden="true">
+    <div class="pre-mandala"><span class="pre-core"><i></i></span></div>
+    <div class="pre-word">MANDALA MAGIC<small>by&nbsp;OM</small></div>
+    <div class="pre-bar"><i></i></div>
+  </div>
 
   <a class="visually-hidden" href="#main">Skip to content</a>
 
@@ -62,8 +69,12 @@
 
   <main id="main">
 
-    <!-- ================= HERO ================= -->
+    <!-- ================= HERO — CINEMATIC SLIDESHOW ================= -->
     <header class="hero">
+      <div class="hero-slides" id="heroSlides" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
       <div class="hero-inner">
         <div class="hero-copy">
           <span class="eyebrow reveal" style="--d:.05s">A Studio of Daily Magic</span>
@@ -74,27 +85,65 @@
             <a class="btn btn-royal magnetic" href="gallery.html">Explore The Art
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <a class="btn btn-gold magnetic" href="shop.html">Shop The Collection</a>
+            <a class="btn btn-gold magnetic" href="shop.html">SHOP THE COLLECTION</a>
           </div>
-          <div class="hero-stats reveal" style="--d:.75s">27 YEARS · DAILY CREATION · ONE ARTWORK AT A TIME</div>
-        </div>
-
-        <div class="hero-art-wrap">
-          <div class="hero-orb gold" aria-hidden="true"></div>
-          <div class="hero-orb royal" aria-hidden="true"></div>
-          <div class="hero-orb teal" aria-hidden="true"></div>
-          <div class="hero-art reveal-zoom" style="--d:.35s">
-            <div class="art-frame" data-tilt data-gold>
-              <div aria-hidden="true"></div>
-            </div>
-          </div>
+          <div class="hero-stats reveal" style="--d:.75s">27+ YEARS · DAILY CREATION · ART WITH INTENTION</div>
         </div>
       </div>
+
+      <button class="hero-arrow hero-prev" id="heroPrev" aria-label="Previous artwork"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="hero-arrow hero-next" id="heroNext" aria-label="Next artwork"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="hero-dots" id="heroDots" role="tablist" aria-label="Choose hero artwork"></div>
+
       <div class="scroll-hint" aria-hidden="true">
         <span>Scroll to explore</span>
         <span class="line"></span>
       </div>
     </header>
+
+    <!-- ================= VALUE STRIP ================= -->
+    <section class="sec sec-tight value-sec" aria-label="Why shop with us">
+      <div class="wrap">
+        <div class="value-grid stagger">
+          <div class="value-item reveal">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4c2.4 3 5 4.7 8 5-.3 3.3-2 5.9-4 8" stroke-linejoin="round"/><path d="M12 4C9.6 7 7 8.7 4 9c.3 3.3 2 5.9 4 8" stroke-linejoin="round"/><circle cx="12" cy="14" r="3" stroke-linejoin="round"/><path d="M3 21h18" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3>UNIQUE ORIGINAL ART</h3>
+              <p>Every piece is one of a kind — signed, dated and created with a daily intention.</p>
+            </div>
+          </div>
+          <div class="value-item reveal" style="--d:.1s">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3h10l4 4v14H3V7l4-4z" stroke-linejoin="round"/><path d="M7 3v4a2 2 0 0 0 4 0V3M13 3v4a2 2 0 0 0 4 0V3" stroke-linejoin="round"/><path d="M6 11h12v10H6z" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>PREMIUM, MADE TO ORDER</h3>
+              <p>Printed on demand with premium quality — created for you, only when you choose it.</p>
+            </div>
+          </div>
+          <div class="value-item reveal" style="--d:.2s">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.3 4 5.6 4 9s-1.3 6.7-4 9c-2.7-2.3-4-5.6-4-9s1.3-6.7 4-9z" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>WORLDWIDE SHIPPING</h3>
+              <p>Art that travels the globe to find a new home — wherever you are.</p>
+            </div>
+          </div>
+          <div class="value-item reveal" style="--d:.3s">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.3-7-9.3C5 8 7 6 9.3 6c1.2 0 2.2.5 2.7 1.3C12.5 6.5 13.5 6 14.7 6 17 6 19 8 19 10.7c0 5-7 9.3-7 9.3z" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>SUPPORT AN INDEPENDENT ARTIST</h3>
+              <p>Every purchase keeps the daily creation alive — one Mandala at a time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ================= MARQUEE ================= -->
     <div class="marquee" aria-hidden="true">
@@ -108,35 +157,22 @@
       </div>
     </div>
 
-    <!-- ================= ARTIST STORY ================= -->
-    <section class="sec" aria-labelledby="story-h">
+    <!-- ================= TODAY'S MANDALA ================= -->
+    <section class="sec sec-tight" aria-labelledby="daily-h" data-widget="daily" data-mode="hero"></section>
+
+    <!-- ================= SHOP BY CATEGORY ================= -->
+    <section class="sec" aria-labelledby="cat-h">
       <div class="wrap">
-        <div class="grid-2">
-          <div class="story-figure reveal-l">
-            <div class="art-frame"><div id="heroArt" aria-hidden="true"></div></div>
-            <div class="story-fig-caption">A Mandala for every morning · 1999 — today</div>
-          </div>
-          <div class="reveal-r">
-            <span class="eyebrow">The Artist</span>
-            <h2 class="display-l" id="story-h" style="margin:16px 0 20px">27 Years of Creating<br>With <span class="grad-gold serif-it">Intention</span></h2>
-            <p class="lede">Every morning, Orchid creates a new Mandala as a way of setting an intention for the day. What began as a personal creative practice has grown into a remarkable collection of artwork spanning decades.</p>
-            <p class="lede" style="margin-top:14px">Her art drifts between sacred geometry and dreamlike worlds — always rooted in a single, honest feeling.</p>
-            <div class="story-points">
-              <span class="chip">Mandalas</span><span class="chip">Digital Landscapes</span><span class="chip">Abstract Creations</span><span class="chip">Inspirational Designs</span>
-            </div>
-            <div class="story-cta-row">
-              <a class="btn btn-gold magnetic" href="about.html">Discover Orchid's Story →</a>
-              <span class="siggr" aria-hidden="true">Orchid</span>
-            </div>
-          </div>
+        <div class="intro-head">
+          <span class="eyebrow center reveal">Endless Ways to Wear the Magic</span>
+          <h2 class="display-l reveal" id="cat-h" style="--d:.1s">Shop by <span class="grad-gold serif-it">Category</span></h2>
+          <p class="lede reveal" style="--d:.2s">From prints to wearables — every category carries the Mandala of the day.</p>
         </div>
+        <div class="cat-grid stagger" id="catGrid"></div>
       </div>
     </section>
 
-    <!-- ================= DAILY MANDALA ================= -->
-    <section class="sec sec-tight" aria-labelledby="daily-h" data-widget="daily" data-mode="hero"></section>
-
-    <!-- ================= GALLERY TEASER ================= -->
+    <!-- ================= FEATURED ART ================= -->
     <section class="sec" aria-labelledby="gal-h">
       <div class="wrap">
         <div class="intro-head">
@@ -147,6 +183,23 @@
         <div class="masonry stagger" id="teaserGrid"></div>
         <div class="load-more-wrap reveal">
           <a class="btn btn-royal magnetic" href="gallery.html">Enter the Full Gallery
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NEW ARRIVALS ================= -->
+    <section class="sec" aria-labelledby="new-h">
+      <div class="wrap">
+        <div class="intro-head">
+          <span class="eyebrow center reveal">Straight from the Studio</span>
+          <h2 class="display-l reveal" id="new-h" style="--d:.1s">New <span class="grad-gold serif-it">Arrivals</span></h2>
+          <p class="lede reveal" style="--d:.2s">The newest creations, ready to carry — fresh from a morning of intention.</p>
+        </div>
+        <div class="shop-grid stagger" id="newGrid"></div>
+        <div class="load-more-wrap reveal">
+          <a class="btn btn-gold magnetic" href="shop.html">Browse Everything in the Shop
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -189,15 +242,73 @@
       </div>
     </section>
 
-    <!-- ================= COLLECTIONS TEASER ================= -->
+    <!-- ================= ARTWORK COLLECTIONS ================= -->
     <section class="sec" aria-labelledby="coll-h">
       <div class="wrap">
         <div class="intro-head">
           <span class="eyebrow center reveal">Curated Worlds</span>
           <h2 class="display-l reveal" id="coll-h" style="--d:.1s">Explore the <span class="grad-gold serif-it">Collections</span></h2>
-          <p class="lede reveal" style="--d:.2s">Seven worlds woven from twenty-seven years of daily practice.</p>
+          <p class="lede reveal" style="--d:.2s">Curated worlds woven from twenty-seven years of daily practice.</p>
         </div>
         <div class="col-grid stagger" id="collGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= MEET ORCHID MANDALA ================= -->
+    <section class="sec sec-tight" aria-labelledby="story-h">
+      <div class="wrap">
+        <div class="meet-grid">
+          <div class="story-figure reveal-l">
+            <div class="art-frame"><div id="heroArt" aria-hidden="true"></div></div>
+            <div class="story-fig-caption">A Mandala for every morning · 1999 — today</div>
+          </div>
+          <div class="reveal-r meet-mid">
+            <span class="eyebrow">The Artist</span>
+            <h2 class="display-l" id="story-h" style="margin:16px 0 20px">Meet <span class="grad-gold serif-it">Orchid Mandala</span></h2>
+            <p class="lede">Every morning, Orchid creates a new Mandala as a way of setting an intention for the day. What began as a personal creative practice has grown into a remarkable collection of artwork spanning decades.</p>
+            <p class="lede" style="margin-top:14px">His art drifts between sacred geometry and dreamlike worlds — always rooted in a single, honest feeling.</p>
+            <div class="story-points">
+              <span class="chip">Mandalas</span><span class="chip">Digital Landscapes</span><span class="chip">Abstract Creations</span><span class="chip">Inspirational Designs</span>
+            </div>
+            <div class="story-cta-row">
+              <a class="btn btn-gold magnetic" href="about.html">Discover Orchid's Story →</a>
+              <span class="siggr" aria-hidden="true">Orchid</span>
+            </div>
+          </div>
+          <div class="meet-right reveal-r" style="--d:.15s">
+            <div class="meet-medallion" aria-hidden="true"></div>
+            <div class="art-frame meet-frame"><div id="meetArt" aria-hidden="true"></div></div>
+            <div class="meet-note">
+              <span class="meet-num">27+</span>
+              <span class="meet-yrs">YEARS OF<br>DAILY CREATION</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ART WITH INTENTION — QUOTE ================= -->
+    <section class="sec quote-sec" aria-labelledby="quote-h">
+      <div class="quote-ring" aria-hidden="true"></div>
+      <div class="wrap-narrow">
+        <blockquote class="quote-block reveal-zoom" id="quote-h">
+          <span class="quote-mark serif-it" aria-hidden="true">&ldquo;</span>
+          <p class="quote-text">Art is a conversation with the universe. I simply show up every day and&nbsp;listen.</p>
+          <cite>Orchid Mandala</cite>
+          <span class="quote-sub">CREATING WITH INTENTION SINCE 1999</span>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ================= EVERY MANDALA HAS AN INTENTION ================= -->
+    <section class="sec" aria-labelledby="story2-h">
+      <div class="wrap">
+        <div class="intro-head">
+          <span class="eyebrow center reveal">Behind the Art</span>
+          <h2 class="display-l reveal" id="story2-h" style="--d:.1s">Every Mandala Has an <span class="grad-gold serif-it">Intention</span></h2>
+          <p class="lede reveal" style="--d:.2s">Each piece begins as a feeling, a prayer, or a single honest word — and carries it forever.</p>
+        </div>
+        <div class="grid-3 stagger" id="storyGrid"></div>
       </div>
     </section>
 
@@ -216,18 +327,6 @@
       </div>
     </section>
 
-    <!-- ================= ARTWORK STORY ================= -->
-    <section class="sec" aria-labelledby="story2-h">
-      <div class="wrap">
-        <div class="intro-head">
-          <span class="eyebrow center reveal">Behind the Art</span>
-          <h2 class="display-l reveal" id="story2-h" style="--d:.1s">Every Mandala Has an <span class="grad-gold serif-it">Intention</span></h2>
-          <p class="lede reveal" style="--d:.2s">Each piece begins as a feeling, a prayer, or a single honest word — and carries it forever.</p>
-        </div>
-        <div class="grid-3 stagger" id="storyGrid"></div>
-      </div>
-    </section>
-
     <!-- ================= LOVE THIS DESIGN / ARTWORK → PRODUCT ================= -->
     <section class="sec sec-tight" aria-labelledby="love-h">
       <div class="wrap">
@@ -239,7 +338,7 @@
             <p class="daily-note" style="color:var(--faint);font-size:.8rem">Available on:</p>
             <div class="products-avail" id="loveAvail"></div>
             <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:26px">
-              <a class="btn btn-gold" href="shop.html?art=cosmic-bloom">Shop This Artwork</a>
+              <a class="btn btn-gold" href="shop.html?art=cosmic-bloom" id="loveShopLink">Shop This Artwork</a>
               <a class="btn btn-ghost" href="gallery.html">More Artwork</a>
             </div>
           </div>
@@ -256,7 +355,7 @@
         <div class="intro-head">
           <span class="eyebrow center reveal">Kind Words</span>
           <h2 class="display-l reveal" id="tes-h" style="--d:.1s">Words From the <span class="grad-gold serif-it">Community</span></h2>
-          <p class="lede reveal" style="--d:.2s">Placeholder voices as Orchid gathers the real ones.</p>
+          <p class="lede reveal" style="--d:.2s">A note from those who live with the art.</p>
         </div>
         <div class="tes-grid"></div>
       </div>
@@ -300,7 +399,7 @@
       <div class="footer-top">
         <div class="foot-brand">
           <img src="logo.png" alt="Mandala Magic by OM logo">
-          <p class="serif-it" style="color:var(--gold-light);font-size:1.1rem">“Art created with intention.”</p>
+          <p class="serif-it" style="color:var(--gold-light);font-size:1.1rem">&ldquo;Art created with intention.&rdquo;</p>
           <p>Twenty-seven years of Mandalas, landscapes and daily art — made to inspire your everyday life.</p>
           <div class="foot-social">
             <a class="icon-btn" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
@@ -342,7 +441,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/data.js"></script>
+  <script src="assets/js/db.js"></script>
   <script src="assets/js/home.js"></script>
   <script src="assets/js/app.js"></script>
 </body>

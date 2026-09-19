@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mandala Magic Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="/admin/admin.css">
+<link rel="icon" href="/assets/img/logo-mark.svg">
+</head>
+<body class="a-body">
+<div id="login" class="a-login hidden">
+  <form class="a-login-card" id="loginForm">
+    <img src="/assets/img/logo-mark.svg" width="64" height="64" alt="">
+    <h1>Mandala Magic <span>by OM</span></h1>
+    <p class="a-login-sub">Art Created With Intention. · Admin Studio</p>
+    <label>Email<input type="email" name="email" autocomplete="username" placeholder="admin@mandalamagicbyom.com" required></label>
+    <label>Password<input type="password" name="password" autocomplete="current-password" placeholder="Your studio password" required></label>
+    <button class="a-btn a-btn-gold" type="submit">Enter the Studio</button>
+    <p class="a-login-hint">Studio credentials come from the server seed. Forgotten? On the server run <code>npm run admin:reset</code>.</p>
+    <p class="a-err" id="loginErr"></p>
+  </form>
+</div>
+
+<div id="shell" class="a-shell hidden">
+  <aside class="a-sidebar">
+    <div class="a-brand">
+      <img src="/assets/img/logo-mark.svg" width="36" height="36" alt="">
+      <div><strong>MANDALA MAGIC</strong><small>BY&nbsp;OM · STUDIO</small></div>
+    </div>
+    <nav class="a-nav" id="nav">
+      <button class="a-nav-btn" data-view="dashboard"><span class="a-ic">◈</span>Dashboard</button>
+      <div class="a-nav-group">Artwork</div>
+      <button class="a-nav-btn" data-view="artworks"><span class="a-ic">❋</span>All Artwork</button>
+      <button class="a-nav-btn a-nav-gold" data-view="wizard"><span class="a-ic">+</span>Add Daily Mandala</button>
+      <button class="a-nav-btn" data-view="products"><span class="a-ic">◍</span>Products</button>
+      <div class="a-nav-group">Commerce</div>
+      <button class="a-nav-btn" data-view="orders"><span class="a-ic">▤</span>Orders</button>
+      <button class="a-nav-btn" data-view="customers"><span class="a-ic">✦</span>Customers</button>
+      <button class="a-nav-btn" data-view="messages"><span class="a-ic">✉</span>Messages</button>
+      <button class="a-nav-btn" data-view="yoycol"><span class="a-ic">⇄</span>Yoycol Integration</button>
+      <button class="a-nav-btn" data-view="analytics"><span class="a-ic">↗</span>Analytics</button>
+      <div class="a-nav-group">Studio</div>
+      <button class="a-nav-btn" data-view="settings"><span class="a-ic">⚙</span>Settings</button>
+    </nav>
+    <div class="a-side-foot">
+      <button class="a-nav-btn" id="openStore"><span class="a-ic">↗</span>View Store</button>
+      <button class="a-nav-btn" id="logoutBtn"><span class="a-ic">⏻</span>Sign Out</button>
+    </div>
+  </aside>
+  <main class="a-main">
+    <header class="a-topbar">
+      <button class="a-burger" id="burger">☰</button>
+      <div class="a-page-title" id="pageTitle">Dashboard</div>
+      <div class="a-top-right">
+        <span class="a-live-dot"></span><span class="a-live">Studio online</span>
+        <span class="a-who" id="whoAmI"></span>
+      </div>
+    </header>
+    <div class="a-content" id="view">Loading…</div>
+  </main>
+</div>
+
+<div id="toasts" class="a-toasts"></div>
+<div id="modalRoot"></div>
+<script src="/admin/admin.js"></script>
+</body>
+</html>

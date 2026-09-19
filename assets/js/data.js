@@ -1,7 +1,8 @@
 /* ============================================================
    MANDALA MAGIC BY OM — Content Model & Generative Artwork
-   Demo content. Orchid can replace artworks/products with her
-   real Yoycol catalog later by editing this file.
+   SERVER-SIDE SEED CATALOG — loaded by server/seed.js to seed
+   the database on first run. NOT served to the storefront
+   (which reads the live DB via assets/js/db.js → /api/public/*).
    ============================================================ */
 window.MM = window.MM || {};
 const MM = window.MM;

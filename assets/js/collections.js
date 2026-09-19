@@ -1,5 +1,6 @@
 /* ============================================================
    MANDALA MAGIC BY OM — Collections page
+   (Members come from the DB collection_items, not hardcoded.)
    ============================================================ */
 window.MM = window.MM || {};
 window.MM.pageInit = function () {
@@ -7,21 +8,13 @@ window.MM.pageInit = function () {
   const wrap = MM.q('#collectionsWrap');
   if (!wrap) return;
 
-  const members = {
-    'sacred-geometry': ['sacred-geometry-i', 'infinite-harmony', 'serene-cosmos', 'golden-intention'],
-    'cosmic-dreams': ['inner-universe', 'dreamscape', 'cosmic-tide', 'ocean-of-stars', 'starlight-bloom'],
-    'nature-landscapes': ['path-of-light', 'celestial-garden', 'sacred-sunrise', 'moonlit-garden', 'violet-dawn'],
-    'peace-meditation': ['heart-of-calm', 'echo-of-silence', 'aurora-mandala', 'serene-cosmos'],
-    'colour-of-day': ['dancing-petals', 'violet-dawn', 'nova-petals', 'prism-lotus', 'amber-reverie'],
-    'daily-mandalas': ['cosmic-bloom', 'golden-intention', 'whispers-of-gold', 'temple-of-light', 'starlight-bloom'],
-    'best-sellers': ['cosmic-bloom', 'golden-intention', 'infinite-harmony', 'ocean-of-stars', 'sacred-sunrise']
-  };
-
   const ARROW = MM.icons.arrow;
 
   wrap.innerHTML = MM.collections.map((c, i) => {
     const cover = MM.findArt(c.artId);
-    const picks = (members[c.id] || [c.artId]).slice(0, 4);
+    if (!cover) return '';
+    const picks = (c.members || []).slice(0, 4);
+    const count = (c.members || []).length;
     const mini = picks.map(id => {
       const a = MM.findArt(id);
       if (!a) return '';
@@ -32,7 +25,7 @@ window.MM.pageInit = function () {
         ${MM.artworkSVG(c.artId)}
         <div class="scrim"></div>
         <div class="ctx">
-          <div class="cnt">${c.id === 'best-sellers' ? 'Most loved by the community' : 'Curated by Orchid'}</div>
+          <div class="cnt">${count}${count === 1 ? ' Work' : ' Works'} · Curated by Orchid</div>
           <h2>${c.name}</h2>
           <p>${c.blurb}</p>
           <div class="mini-grid">${mini}</div>

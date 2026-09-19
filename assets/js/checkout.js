@@ -41,13 +41,6 @@ window.MM.pageInit = function () {
 
   renderSummary();
 
-  /* payment gate toggle */
-  const gates = MM.qa('.pay-gate .pg');
-  gates.forEach(g => g.addEventListener('click', () => {
-    gates.forEach(x => x.classList.remove('active'));
-    g.classList.add('active');
-  }));
-
   const form = MM.q('#checkoutForm');
   if (form) form.addEventListener('submit', e => {
     e.preventDefault();
@@ -66,7 +59,7 @@ window.MM.pageInit = function () {
     try { localStorage.setItem('mm_last_order', JSON.stringify(order)); } catch (err) {}
     MM.cartSave([]);
     MM.refreshCartUI();
-    MM.toast('Order placed ✦ welcome to the magic');
+    MM.toast('Order placed ✦ the studio will email you shortly');
     setTimeout(() => { location.href = 'order.html'; }, 650);
   });
 };

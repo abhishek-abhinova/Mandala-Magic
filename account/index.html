@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Account · Mandala Magic by OM</title>
+<meta name="description" content="Welcome back, collector. Manage your orders, wishlist and details at Mandala Magic by OM.">
+<link rel="icon" href="/assets/img/logo-mark.svg">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/account/account.css">
+</head>
+<body class="ac-body">
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <img class="nav-logo-mark" src="/assets/img/logo-mark.svg" alt="Mandala Magic by OM mark">
+      <span class="nav-logo-word">MANDALA&nbsp;MAGIC<small>BY&nbsp;OM</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a><a href="/gallery">Art Gallery</a><a href="/shop">Shop</a><a href="/daily">Daily Mandala</a><a href="/collections">Collections</a>
+    </nav>
+    <div class="nav-actions"><a class="btn btn-sm" href="/account">My Account</a></div>
+  </div>
+</header>
+
+<main class="ac-main">
+  <section id="acAuth" class="ac-auth">
+    <div class="ac-auth-card">
+      <img src="/assets/img/logo-mark.svg" width="56" height="56" alt="">
+      <h1>Mandala Magic <span>by OM</span></h1>
+      <p class="ac-tag">Art Created With Intention.</p>
+      <div class="ac-tabs" role="tablist">
+        <button class="ac-tab active" data-tab="login">Sign In</button>
+        <button class="ac-tab" data-tab="register">Create Account</button>
+      </div>
+      <div id="acLogin" class="ac-form-wrap">
+        <form id="loginForm">
+          <label>Email<input type="email" name="email" autocomplete="username" required placeholder="you@example.com"></label>
+          <label>Password<input type="password" name="password" autocomplete="current-password" required placeholder="••••••••"></label>
+          <button class="btn" type="submit">Sign In</button>
+        </form>
+        <button class="ac-link" id="forgotBtn">Forgot password?</button>
+      </div>
+      <div id="acRegister" class="ac-form-wrap hidden">
+        <form id="registerForm">
+          <label>Name<input type="text" name="name" autocomplete="name" required placeholder="Your name"></label>
+          <label>Email<input type="email" name="email" autocomplete="email" required placeholder="you@example.com"></label>
+          <label>Password<input type="password" name="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters"></label>
+          <button class="btn" type="submit">Create Account</button>
+        </form>
+      </div>
+      <div id="acReset" class="ac-form-wrap hidden">
+        <form id="resetForm">
+          <label>Email<input type="email" name="email" required placeholder="you@example.com"></label>
+          <button class="btn" type="submit">Send Reset Link</button>
+        </form>
+        <p class="ac-hint" id="resetMsg"></p>
+      </div>
+      <p id="acErr" class="ac-err"></p>
+    </div>
+  </section>
+
+  <div id="acDash" class="ac-dash hidden">
+    <aside class="ac-side">
+      <div class="ac-who"><div class="ac-avatar" id="avatar">O</div><div><strong id="acName">Collector</strong><small id="acEmail"></small></div></div>
+      <nav class="ac-nav">
+        <button class="ac-nav-btn active" data-sec="overview">Overview</button>
+        <button class="ac-nav-btn" data-sec="orders">My Orders</button>
+        <button class="ac-nav-btn" data-sec="wishlist">Wishlist</button>
+        <button class="ac-nav-btn" data-sec="addresses">Addresses</button>
+        <button class="ac-nav-btn" data-sec="profile">Profile</button>
+        <button class="ac-nav-btn" data-sec="security">Security</button>
+      </nav>
+      <button class="ac-nav-btn ac-logout" id="logoutBtn">⏻ Sign Out</button>
+    </aside>
+    <section class="ac-panel" id="acPanel">
+      <div class="ac-loader">Loading…</div>
+    </section>
+  </div>
+</main>
+
+<footer class="ac-foot"><p>Mandala Magic by OM · 27+ Years of Daily Creation · Art Created With Intention.</p></footer>
+<div id="acToasts" class="ac-toasts"></div>
+<script src="/account/account.js"></script>
+</body>
+</html>

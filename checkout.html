@@ -19,6 +19,12 @@
 </head>
 <body data-page="checkout">
 
+  <div class="preloader is-active" id="preloader" aria-hidden="true">
+    <div class="pre-mandala"><span class="pre-core"><i></i></span></div>
+    <div class="pre-word">MANDALA MAGIC<small>by&nbsp;OM</small></div>
+    <div class="pre-bar"><i></i></div>
+  </div>
+
   <a class="visually-hidden" href="#main">Skip to content</a>
 
   <!-- ================= NAV ================= -->
@@ -114,37 +120,23 @@
             <div>
               <div class="step-num">03 — Payment</div>
               <div style="height:14px"></div>
-              <div class="pay-gate">
-                <button class="pg active" type="button" data-pg="card">💳 Card</button>
-                <button class="pg" type="button" data-pg="paypal">PayPal</button>
-                <button class="pg" type="button" data-pg="gpay">G Pay</button>
-              </div>
-              <div class="field" style="margin-top:16px">
-                <label for="cCard">Card number</label>
-                <input id="cCard" type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
-              </div>
-              <div class="form-2col" style="margin-top:16px">
-                <div class="field">
-                  <label for="cExp">Expiry</label>
-                  <input id="cExp" type="text" placeholder="MM / YY" autocomplete="cc-exp">
-                </div>
-                <div class="field">
-                  <label for="cCvc">CVC</label>
-                  <input id="cCvc" type="text" inputmode="numeric" placeholder="123" autocomplete="cc-csc">
+              <div class="pay-hint">
+                <div class="pay-hint-key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"/></svg></div>
+                <div>
+                  <b>Studio-managed payment</b>
+                  <p>Your order is placed securely with the Mandala Magic studio. We confirm your payment and print-on-demand fulfillment personally — no card details are collected on this website, and nothing is ever stored.</p>
+                  <p class="sm">You'll receive an order confirmation email, followed by a personal note from the studio to arrange payment and shipping. Live card payments become available the moment Orchid activates his payment provider.</p>
                 </div>
               </div>
-              <p class="daily-note" style="font-size:.78rem;margin-top:14px">Demo checkout — connect your real payment provider here. No payment is taken.</p>
             </div>
             <div>
               <div class="step-num">04 — Review &amp; Place</div>
               <div style="height:14px"></div>
-              <div class="secure-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"/></svg> Secure encrypted checkout</div>
+              <div class="secure-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"/></svg> Secured studio checkout</div>
               <div style="margin-top:20px">
                 <button class="btn btn-gold btn-block" type="submit">Place Order &amp; Complete</button>
               </div>
-              <div class="pay-gate" style="grid-template-columns:repeat(4,1fr);margin-top:16px">
-                <span class="pg">VISA</span><span class="pg">MC</span><span class="pg">AMEX</span><span class="pg">● ● ●</span>
-              </div>
+              <p class="daily-note" style="font-size:.78rem;text-align:center;margin-top:14px">A studio member confirms every order personally.</p>
             </div>
           </form>
 
@@ -157,7 +149,7 @@
               <div class="r"><span>Estimated tax</span><span id="coTax">Computed at checkout</span></div>
               <div class="r grand"><span>Total</span><span class="amnt" id="coTotal">$0.00</span></div>
             </div>
-            <p class="daily-note" style="font-size:.76rem">Made to order · Printed &amp; fulfilled through our trusted print-on-demand partner · Free shipping over $65</p>
+            <p class="daily-note" style="font-size:.76rem">Made to order · Printed &amp; fulfilled through our trusted print-on-demand partner · Free shipping over $75</p>
           </aside>
         </div>
       </div>
@@ -211,7 +203,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/data.js"></script>
+  <script src="assets/js/db.js"></script>
   <script src="assets/js/checkout.js"></script>
   <script src="assets/js/app.js"></script>
 </body>

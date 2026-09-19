@@ -17,6 +17,11 @@ window.MM.pageInit = function () {
     const a = MM.findArt(params.get('art'));
     if (a) artFilter = a.id;
   }
+  if (params.get('cat')) {
+    const c = params.get('cat');
+    const chip = MM.q(`.chip[data-cat="${c}"]`);
+    if (chip) cat = c;
+  }
 
   function matches(p) {
     if (artFilter && p.artId !== artFilter) return false;
@@ -67,7 +72,9 @@ window.MM.pageInit = function () {
   }
 
   const bar = MM.q('#catBar');
-  if (bar) bar.addEventListener('click', e => {
+  if (bar) {
+    MM.qa('.chip', bar).forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+    bar.addEventListener('click', e => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
     MM.qa('.chip', bar).forEach(c => c.classList.remove('active'));
@@ -76,7 +83,8 @@ window.MM.pageInit = function () {
     shown = PAGE;
     render();
     grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+    });
+  }
 
   const more = MM.q('#shopMore');
   if (more) more.addEventListener('click', () => { shown += PAGE; render(); });

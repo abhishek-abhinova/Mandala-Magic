@@ -51,20 +51,11 @@
 
   MM.renderProductMedia = function (p, cls) {
     const wrap = document.createElement('div');
-    wrap.className = 'prod-svg-wrap';
+    wrap.className = cls ? ('prod-svg-wrap ' + cls) : 'prod-svg-wrap';
     wrap.setAttribute('data-prod', p.id);
-    wrap.innerHTML = `<svg class="prod-svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">${innerArt(p.artId)}</svg>`;
+    wrap.innerHTML = `<div class="prod-media">${MM.artworkSVG(p.artId)}</div>`;
     return wrap;
   };
-
-  function innerArt(id) {
-    const art = MM.findArt(id);
-    if (!art) return '';
-    const sp = document.createElement('div');
-    sp.innerHTML = MM.artworkSVG(id);
-    const svg = sp.firstChild;
-    return svg ? svg.innerHTML : '';
-  }
 
   MM.productCard = function (p) {
     const art = MM.findArt(p.artId);
@@ -74,7 +65,7 @@
     const wished = MM.wishlistHas(p.id);
     w.innerHTML = `
       <div class="prod-media">
-        ${innerArt(p.artId) ? `<svg class="prod-svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">${innerArt(p.artId)}</svg>` : ''}
+        ${MM.artworkSVG(p.artId)}
         <span class="prod-badge">${p.type}</span>
         <button class="prod-whish ${wished ? 'wished' : ''}" data-wish="${p.id}" aria-label="Add to wishlist">${wished ? ICONS.heartFill : ICONS.heart}</button>
         <span class="prod-cta">
@@ -334,7 +325,8 @@
     { h: 'daily.html', t: 'Daily Mandala' },
     { h: 'about.html', t: 'About Orchid' },
     { h: 'collections.html', t: 'Collections' },
-    { h: 'contact.html', t: 'Contact' }
+    { h: 'contact.html', t: 'Contact' },
+    { h: 'account/index.html', t: 'My Account' }
   ];
 
   function buildChrome() {
@@ -351,6 +343,16 @@
       const g = d.createElement('div');
       g.id = 'cursorGlow';
       body.appendChild(g);
+    }
+    if (!$('#cursorRing')) {
+      const r = d.createElement('div');
+      r.id = 'cursorRing';
+      body.appendChild(r);
+    }
+    if (!$('#cursorDot')) {
+      const dot = d.createElement('div');
+      dot.id = 'cursorDot';
+      body.appendChild(dot);
     }
     (['orb-1', 'orb-2', 'orb-3']).forEach(c => {
       if (!$('.' + c)) {
@@ -457,37 +459,6 @@
       const cta = $('.nav-cta');
       if (navA) navA.insertBefore(nt, cta || navA.firstChild);
     }
-
-    /* account modal */
-    if (!$('#acctModal')) {
-      const am = d.createElement('div');
-      am.id = 'acctModal';
-      am.className = 'overlay';
-      am.setAttribute('role', 'dialog');
-      am.innerHTML = `<div class="overlay-card glass" style="padding:38px;position:relative">
-        <button class="lb-close" style="top:14px;right:14px" data-acctclose aria-label="Close">${ICONS.x}</button>
-        <span class="eyebrow">Mandala Magic by OM</span>
-        <h2 class="display-m" style="margin:14px 0 8px">Welcome back, dear soul</h2>
-        <p class="lede" style="margin-bottom:20px">Sign in to track orders and keep your wishlist across devices.</p>
-        <form class="acct-form" data-acctform>
-          <div class="field" style="margin-bottom:14px">
-            <label for="acctEmail">Email address</label>
-            <input id="acctEmail" type="email" required placeholder="you@example.com"/>
-          </div>
-          <button class="btn btn-gold btn-block" type="submit">Continue with Email</button>
-          <p class="daily-note" style="text-align:center;font-size:.8rem;margin-top:14px">Demo — Orchid can connect this to her real account system later.</p>
-        </form>
-      </div>`;
-      body.appendChild(am);
-      am.addEventListener('click', e => {
-        if (e.target === am || e.target.closest('[data-acctclose]')) am.classList.remove('open');
-      });
-      am.addEventListener('submit', e => {
-        e.preventDefault();
-        am.classList.remove('open');
-        MM.toast('Welcome back ✦ Order tracking coming soon.');
-      });
-    }
   }
 
   function initNav() {
@@ -511,7 +482,7 @@
     const cartBtn = $('#cartBtn');
     if (cartBtn) cartBtn.addEventListener('click', MM.openCart);
     const acctBtn = $('#acctBtn');
-    if (acctBtn) acctBtn.addEventListener('click', () => $('#acctModal') && $('#acctModal').classList.add('open'));
+    if (acctBtn) acctBtn.addEventListener('click', () => { location.href = 'account/index.html'; });
     const overlay = $('#cartOverlay');
     if (overlay) overlay.addEventListener('click', MM.closeCart);
     document.addEventListener('click', e => {
@@ -573,6 +544,8 @@
     MM.relightParticles = function () { try { PALETTES = palettesFor(document.documentElement.dataset.theme); if (typeof seed === 'function') seed(); } catch (e) {} };
     let parts = [];
     let orbs = [];
+    let cxp = -400, cyp = -400;
+    try { window.addEventListener('mousemove', e => { cxp = e.clientX; cyp = e.clientY; }, { passive: true }); } catch (e) {}
 
     function size() {
       W = window.innerWidth; H = window.innerHeight;
@@ -581,14 +554,18 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     function seed() {
-      const n = Math.max(30, Math.min(90, Math.round(W * H / 22000)));
-      parts = Array.from({ length: n }, () => ({
-        x: Math.random() * W, y: Math.random() * H,
-        r: 0.6 + Math.random() * 1.8,
-        vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28 - 0.05,
-        c: PALETTES[Math.floor(Math.random() * PALETTES.length)],
-        tw: Math.random() * Math.PI * 2, tws: 0.008 + Math.random() * 0.02
-      }));
+      const n = Math.max(34, Math.min(96, Math.round(W * H / 21000)));
+      parts = Array.from({ length: n }, () => {
+        const near = Math.random() < 0.34;
+        return {
+          x: Math.random() * W, y: Math.random() * H,
+          r: near ? 1.1 + Math.random() * 2.1 : 0.5 + Math.random() * 1.2,
+          vx: (Math.random() - 0.5) * (near ? 0.5 : 0.22), vy: (Math.random() - 0.5) * (near ? 0.5 : 0.22) - (near ? 0.1 : 0.04),
+          c: PALETTES[Math.floor(Math.random() * PALETTES.length)],
+          tw: Math.random() * Math.PI * 2, tws: (near ? 0.02 : 0.008) + Math.random() * 0.02,
+          near, base: near ? 0.35 : 0.3
+        };
+      });
       orbs = Array.from({ length: 3 }, () => ({
         x: Math.random() * W, y: Math.random() * H,
         r: 120 + Math.random() * 200,
@@ -610,11 +587,19 @@
         ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.fill();
       }
       for (const p of parts) {
+        const dxp = p.x - cxp, dyp = p.y - cyp;
+        const d2 = dxp * dxp + dyp * dyp;
+        const radius = 140;
+        if (p.near && d2 < radius * radius) {
+          const d = Math.sqrt(d2) || 1;
+          p.x += (dxp / d) * 1.6;
+          p.y += (dyp / d) * 1.6;
+        }
         p.x += p.vx; p.y += p.vy;
         p.tw += p.tws;
         if (p.x < -4) p.x = W + 4; if (p.x > W + 4) p.x = -4;
         if (p.y < -4) p.y = H + 4; if (p.y > H + 4) p.y = -4;
-        const a = (0.3 + 0.5 * (0.5 + 0.5 * Math.sin(p.tw))) * +p.c[1];
+        const a = (p.base + 0.5 * (0.5 + 0.5 * Math.sin(p.tw))) * +p.c[1];
         ctx.fillStyle = `rgba(${p.c[0]}, ${a})`;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
       }
@@ -637,6 +622,55 @@
     })();
   }
 
+  function initCursorFX() {
+    const ring = $('#cursorRing'), dot = $('#cursorDot');
+    if (!ring || !dot || window.matchMedia('(hover: none)').matches) return;
+    let tx = innerWidth / 2, ty = innerHeight / 3;
+    let rx = tx, ry = ty, dx = tx, dy = ty;
+    const HOVER = 'a[href], button, [data-tilt], .magnetic, .chip, input, select, textarea, .daily-prev, .avail-line';
+    let hovered = false;
+    document.addEventListener('mouseover', e => {
+      const h = !!(e.target instanceof Element && e.target.closest && e.target.closest(HOVER));
+      ring.classList.toggle('is-hover', h);
+      hovered = h;
+    });
+    document.addEventListener('mouseout', e => {
+      if (!hovered) return;
+      if (e.target instanceof Element && e.target.closest && e.target.closest(HOVER)) {
+        ring.classList.remove('is-hover');
+        hovered = false;
+      }
+    });
+    window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    (function anim() {
+      rx += (tx - rx) * 0.16; ry += (ty - ry) * 0.16;
+      dx += (tx - dx) * 0.5; dy += (ty - dy) * 0.5;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+      dot.style.transform = `translate3d(${dx}px, ${dy}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(anim);
+    })();
+    const leave = () => ring.classList.add('is-hidden');
+    const enter = () => ring.classList.remove('is-hidden');
+    document.addEventListener('mouseleave', leave);
+    document.addEventListener('mouseenter', enter);
+  }
+
+  function initPreloader() {
+    const pre = $('#preloader');
+    if (!pre) return;
+    const fade = () => {
+      if (pre.classList.contains('is-done')) return;
+      pre.classList.remove('is-active');
+      pre.classList.add('is-done');
+      try { sessionStorage.setItem('mm_intro', '1'); } catch (e) {}
+    };
+    try {
+      if (sessionStorage.getItem('mm_intro')) { pre.remove(); return; }
+    } catch (e) {}
+    const t = setTimeout(fade, 1500);
+    window.addEventListener('load', () => { clearTimeout(t); fade(); });
+  }
+
   function initReveal() {
     const els = $$('.reveal, .reveal-l, .reveal-r, .reveal-zoom, .stagger, .cnt-reveal');
     if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
@@ -656,20 +690,38 @@
   function initTilt() {
     if (window.matchMedia('(hover: none)').matches) return;
     $$('[data-tilt], .tilt').forEach(el => {
-      let raf;
+      let raf, leaving = false;
+      const reset = () => {
+        el.style.transform = '';
+        el.style.boxShadow = '';
+        el.style.setProperty('--go', '0');
+        el.style.setProperty('--gx', '50%');
+        el.style.setProperty('--gy', '50%');
+      };
       el.addEventListener('mousemove', e => {
         const r = el.getBoundingClientRect();
         const mx = (e.clientX - r.left) / r.width - 0.5;
         const my = (e.clientY - r.top) / r.height - 0.5;
+        const px = ((e.clientX - r.left) / r.width) * 100;
+        const py = ((e.clientY - r.top) / r.height) * 100;
+        leaving = false;
+        el.style.transition = 'transform 0.1s ease';
         if (raf) cancelAnimationFrame(raf);
         raf = requestAnimationFrame(() => {
           el.style.transform = `perspective(900px) rotateX(${(-my * 7).toFixed(2)}deg) rotateY(${(mx * 7).toFixed(2)}deg) translateY(-4px)`;
           if (el.dataset.gold) el.style.boxShadow = `0 ${26 + Math.abs(mx * my) * 60}px 80px -30px rgba(0,0,0,0.85), 0 0 ${20 + Math.abs(mx) * 40}px ${Math.abs(my) * 20}px rgba(212,175,55,0.3)`;
+          if (el.dataset.glare) {
+            el.style.setProperty('--gx', px + '%');
+            el.style.setProperty('--gy', py + '%');
+            el.style.setProperty('--go', '1');
+          }
         });
       });
       el.addEventListener('mouseleave', () => {
         if (raf) cancelAnimationFrame(raf);
-        el.style.transform = '';
+        leaving = true;
+        el.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.9, 0.28, 1), box-shadow 0.6s ease';
+        reset();
       });
     });
   }
@@ -677,14 +729,37 @@
   function initMagnetic() {
     if (window.matchMedia('(hover: none)').matches) return;
     $$('.magnetic').forEach(el => {
+      el.addEventListener('mouseenter', () => { el.classList.add('is-pulled'); });
       el.addEventListener('mousemove', e => {
         const r = el.getBoundingClientRect();
         const dx = (e.clientX - (r.left + r.width / 2)) * 0.32;
         const dy = (e.clientY - (r.top + r.height / 2)) * 0.32;
         el.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0)`;
       });
-      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      el.addEventListener('mouseleave', () => {
+        el.classList.remove('is-pulled');
+        el.style.transform = '';
+      });
     });
+  }
+
+  function initMouseParallax() {
+    if (window.matchMedia('(hover: none)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const els = $$('[data-mp]');
+    if (!els.length) return;
+    let tx = 0, ty = 0, x = 0, y = 0;
+    window.addEventListener('mousemove', e => {
+      tx = (e.clientX / innerWidth - 0.5) * 2;
+      ty = (e.clientY / innerHeight - 0.5) * 2;
+    }, { passive: true });
+    (function anim() {
+      x += (tx - x) * 0.06; y += (ty - y) * 0.06;
+      for (const el of els) {
+        const depth = parseFloat(el.dataset.mp) || 12;
+        el.style.translate = `${(-x * depth).toFixed(1)}px ${(-y * depth).toFixed(1)}px`;
+      }
+      requestAnimationFrame(anim);
+    })();
   }
 
   function initTransitions() {
@@ -856,6 +931,7 @@
   }
 
   function mountTestimonials(el) {
+    if (!MM.testimonials || !MM.testimonials.length) { el.style.display = 'none'; return; }
     el.querySelectorAll('.tes-grid').forEach(g => {
       g.innerHTML = MM.testimonials.map(t => `
         <figure class="tes-card tile reveal" data-mount>
@@ -929,12 +1005,16 @@
   /* ================= BOOT ================= */
   MM.init = function () {
     const safe = fn => { try { fn(); } catch (err) { console.error('MM init step failed', err); } };
+    // Non-catalog chrome + interactions boot immediately…
+    safe(initPreloader);
     safe(buildChrome);
     safe(initTheme);
     safe(initNav);
     safe(initChromeDelegation);
     safe(initParticles);
     safe(initCursorGlow);
+    safe(initCursorFX);
+    safe(initMouseParallax);
     safe(initReveal);
     safe(initTilt);
     safe(initMagnetic);
@@ -943,11 +1023,6 @@
     safe(initScrollMotion);
     safe(initCounters);
     safe(wireWidgetEvents);
-
-    const info = $('#infoSection') || $('[data-widget="info"]');
-    $$('[data-widget="daily"]').forEach(el => mountDaily(el, { hero: el.dataset.mode === 'hero' }));
-    $$('[data-widget="testimonials"]').forEach(mountTestimonials);
-    $$('[data-widget="social"]').forEach(mountSocialGrid);
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
@@ -958,17 +1033,40 @@
         document.body.style.overflow = '';
       }
     });
-    MM.refreshCartUI();
 
-    if (typeof MM.pageInit === 'function') {
-      try { MM.pageInit(); } catch (err) { console.error('page init error', err); }
-    }
+    // …while the catalog renders only once the DB data has arrived from /api/public/*.
+    const start = () => {
+      document.body.classList.add('mm-ready');
 
-    /* deep link lightbox */
-    const hash = location.hash;
-    if (hash && hash.indexOf('#view-') === 0) {
-      const artId = hash.slice(6);
-      if (MM.findArt(artId)) setTimeout(() => MM.openArtLightbox(artId), 420);
+      const info = $('#infoSection') || $('[data-widget="info"]');
+      $$('[data-widget="daily"]').forEach(el => mountDaily(el, { hero: el.dataset.mode === 'hero' }));
+      $$('[data-widget="testimonials"]').forEach(mountTestimonials);
+      $$('[data-widget="social"]').forEach(mountSocialGrid);
+
+      MM.refreshCartUI();
+
+      if (typeof MM.pageInit === 'function') {
+        try { MM.pageInit(); } catch (err) { console.error('page init error', err); }
+      }
+
+      // Re-observe reveal nodes created during the render above.
+      safe(initReveal);
+
+      /* deep link lightbox */
+      const hash = location.hash;
+      if (hash && hash.indexOf('#view-') === 0) {
+        const artId = hash.slice(6);
+        if (MM.findArt(artId)) setTimeout(() => MM.openArtLightbox(artId), 420);
+      }
+    };
+
+    if (MM.dataReady && typeof MM.dataReady.then === 'function') {
+      MM.dataReady.then(start).catch(err => {
+        console.error('Catalog load failed', err);
+        document.body.classList.add('mm-ready');
+      });
+    } else {
+      start();
     }
   };
 
