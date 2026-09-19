@@ -2,7 +2,6 @@ node_modules/
 .env
 server/data/
 *.db
-dist/
 .DS_Store
 Thumbs.db
 *.log
