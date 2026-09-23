@@ -150,7 +150,7 @@ ${canonical}<link rel="stylesheet" href="${css}">
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 
 function nav(site) {
-  const brandIcon = site.url + '/assets/img/logo-mark.svg';
+  const brandIcon = site.url + '/assets/img/navlogo.png';
   return `<header class="nav"><div class="nav-inner"><a class="nav-logo" href="/">
 <img class="nav-logo-mark" src="${brandIcon}" alt="Mandala Magic by OM">
 </a>
@@ -239,7 +239,7 @@ function ssrCss() {
   .ssr .nav{background:rgba(10,6,24,.85);border-bottom:1px solid rgba(212,175,55,.15);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
   .ssr .nav-inner{display:flex;align-items:center;gap:20px}
   .ssr .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:#f6f1e7}
-  .ssr .nav-logo-mark{width:40px;height:40px}
+  .ssr .nav-logo-mark{width:auto;height:auto;max-width:100%;max-height:56px;object-fit:contain}
   .ssr .nav-logo-word{font-family:'Arial Black',Arial,sans-serif;font-size:.72rem;letter-spacing:.3em;font-weight:700}
   .ssr .nav-logo-word small{display:block;color:#d4af37;font-size:.5rem;letter-spacing:.45em;margin-top:2px}
   .ssr .nav-links a{color:#cfc9e8;text-decoration:none;margin-right:18px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
