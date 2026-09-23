@@ -45,6 +45,12 @@ function runMigrations(db) {
   db.exec(`INSERT OR IGNORE INTO product_artwork_links (product_id, artwork_id)
            SELECT id, artwork_id FROM products WHERE artwork_id IS NOT NULL AND artwork_id != 0`);
 
+  // Homepage hero defaults (slide images, slide interval in seconds, optional background video).
+  if (!db.prepare(`SELECT id FROM settings WHERE key = 'hero'`).get()) {
+    db.prepare(`INSERT INTO settings (key, value) VALUES (?, ?)`)
+      .run('hero', JSON.stringify({ items: ['/hero1.png', '/hero2.png', '/hero3.png', '/hero4.png'], interval: 5, video: '' }));
+  }
+
   // Status / listing indexes for a 900+ artwork gallery with hot lookup paths.
   db.exec(`
 CREATE INDEX IF NOT EXISTS idx_artworks_status_date ON artworks(status, artwork_date DESC);

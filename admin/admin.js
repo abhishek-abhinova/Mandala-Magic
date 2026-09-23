@@ -837,14 +837,25 @@
       <div class="a-form">
         <div class="frow"><div><label>Store name</label><input id="sName" value="${esc(s.store_name || 'Mandala Magic by OM')}"></div>
         <div><label>Tagline</label><input id="sTag" value="${esc(s.tagline || 'Art Created With Intention.')}"></div></div>
-        <div><label>Support email</label><input id="sEmail" value="${esc(s.support_email || 'hello@mandalamagicbyom.com')}"></div>
+        <div><label>Support email</label><input id="sEmail" value="${esc(s.support_email || 'support@mandalamagic.shop')}"></div>
         <label>About the artist <span style="color:var(--ink-faint)">— used on the About page</span></label><textarea id="sAbout" class="a-textarea" style="min-height:90px">${esc(s.about || '')}</textarea>
         <div class="frow"><div><label>Default currency symbol</label><input id="sCur" value="${esc(s.currency || '$')}"></div>
         <div><label>Free shipping threshold ($)</label><input id="sShip" type="number" value="${esc(s.free_shipping_threshold || '75')}"></div></div>
         <div class="a-actions"><button class="a-btn a-btn-gold" id="sSave">Save Settings</button></div>
       </div>
       <div style="border-top:1px solid var(--line);margin-top:10px;padding-top:16px">
-        <div class="a-h2">Yoycol Integration</div>
+        <div class="a-h2">Homepage Hero</div>
+        <p class="a-lede" style="font-size:.78rem">Slide images (or MP4/WebM video background), slideshow speed in seconds, and the delay between slides. Add or remove slides, then <b>Save Hero</b>.</p>
+        <div id="heroSlidesList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
+        <div class="a-btn-row">
+          <button class="a-btn" id="heroAddSlide">+ Add slide</button>
+          <button class="a-btn a-btn-gold" id="heroSave">Save Hero</button>
+        </div>
+        <div class="frow" style="margin-top:10px"><div><label>Interval (seconds)</label><input id="heroInterval" type="number" min="2" max="30" value="5"></div>
+        <div><label>Background video (upload MP4/WebM)</label><input id="heroVideo" type="file" accept="video/mp4,video/webm,image/*" multiple></div></div>
+        <div class="a-btn-row" style="margin-top:10px"><button class="a-btn" id="heroUploadArt">Upload artwork</button></div>
+      </div>
+      <div style="border-top:1px solid var(--line);margin-top:10px;padding-top:16px">
         <p class="a-lede" style="font-size:.82rem">
           ${cred.keyConfiguredInEnv ? '<span class="a-badge b-feat">API key from server .env</span>' : ''} ${cred.secretConfiguredInEnv ? '<span class="a-badge b-feat">secret from server .env</span>' : ''}
           ${!cred.keyConfiguredInEnv && !cred.secretConfiguredInEnv ? '<span class="a-badge b-draft">not configured</span>' : ''}

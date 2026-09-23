@@ -182,8 +182,8 @@ PAYMENT_SECRET_KEY=...
 SMTP_HOST=smtp.your-provider.com
 SMTP_USER=...
 SMTP_PASS=...
-SMTP_FROM=hello@mandalamagicbyom.com
-ADMIN_EMAIL=orchid@mandalamagicbyom.com
+SMTP_FROM=support@mandalamagic.shop
+ADMIN_EMAIL=admin@mandalamagic.shop
 ADMIN_PASSWORD=<change-me>
 ```
 

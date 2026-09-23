@@ -5,8 +5,8 @@ import { fetchSession } from '../lib/api';
 const SUBJECTS = ['General question', 'Order help', 'Wholesale / collaboration', 'Commission a mandala', 'Just saying hello'];
 
 const INFO = [
-  { icon: ICONS.mail, b: 'Email the Studio', p: 'hello@mandalamagicbyom.com\nGeneral enquiries & support' },
-  { icon: ICONS.palette, b: 'Wholesale & Collabs', p: 'orchid@mandalamagicbyom.com\nRetail, licensing & collaborations' },
+  { icon: ICONS.mail, b: 'Email the Studio', p: 'support@mandalamagic.shop\nGeneral enquiries & support' },
+  { icon: ICONS.palette, b: 'Wholesale & Collabs', p: 'support@mandalamagic.shop\nRetail, licensing & collaborations' },
   { icon: ICONS.brush, b: 'Commissions', p: 'A personal mandala or landscape, drawn with intention for you.' },
   { icon: ICONS.ig, b: 'Daily on Instagram', p: '@mandalamagicbyom — a new artwork every morning.' }
 ];

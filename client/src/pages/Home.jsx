@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCatalog, useCart, useUi, Svg, ICONS, PRODUCT_TYPES, quoteSVG, money } from '../context';
+import { loadHeroes } from '../lib/api';
 
 const VALUE_ITEMS = [
   { icon: ICONS.palette, t: 'UNIQUE ORIGINAL ART', p: 'Every piece is one of a kind — signed, dated and created with a daily intention.' },
@@ -37,11 +38,9 @@ export default function HomePage() {
 
   const sorted = useMemo(() => cat.artworks.slice().sort((a, b) => String(b.date).localeCompare(String(a.date))), [cat.artworks]);
   const byDate = sorted;
-  const heroArts = useMemo(() => {
-    const base = byDate[0] ? byDate[0].id : '';
-    const pool = byDate.filter(a => a.id !== base).slice(0, 3);
-    return [base, ...pool.map(a => a.id)].filter(Boolean);
-  }, [byDate]);
+  const [heroCfg, setHeroCfg] = useState({ items: ['/hero1.png', '/hero2.png', '/hero3.png', '/hero4.png'], interval: 5, video: '' });
+  useEffect(() => { let on = true; loadHeroes().then(h => { if (on && h.items.length) setHeroCfg(h); }).catch(() => {}); return () => { on = false; }; }, []);
+  const heroCfgRef = heroCfg; // stable value for the interval effect below
 
   const teasers = byDate.filter(a => a.featured || a.best).slice(0, 8);
   const teasersFull = teasers.length >= 6 ? teasers : byDate.slice(0, 8);
@@ -55,9 +54,9 @@ export default function HomePage() {
   const [slide, setSlide] = useState(0);
   useEffect(() => {
     if (heroArts.length < 2) return;
-    const id = setInterval(() => setSlide(s => (s + 1) % heroArts.length), 6000);
+    const id = setInterval(() => setSlide(s => (s + 1) % heroArts.length), Math.max(2000, Math.min(30000, (heroCfg.interval || 5) * 1000)));
     return () => clearInterval(id);
-  }, [heroArts.length]);
+  }, [heroArts.length, heroCfg.interval]);
 
   const submitNews = e => { e.preventDefault(); ui.toast('Welcome to the magic ✦ You’ll hear from Orchid soon.'); e.currentTarget.reset(); };
 
@@ -65,11 +64,11 @@ export default function HomePage() {
     <>
       {/* -------- HERO -------- */}
       <header className="hero">
+        {heroCfg.video ? <video className="hero-video" src={heroCfg.video} autoPlay muted loop playsInline aria-label="Hero background video"></video> : null}
         <div className="hero-slides" id="heroSlides" aria-hidden="true">
           {heroArts.map((aid, i) => (
-            <div key={aid} className={'hero-slide' + (i === slide ? ' is-on' : '')}>
-              <div className="slide-art" dangerouslySetInnerHTML={{ __html: cat.artworkSVG(aid) }} />
-              <div className="slide-sheen"></div>
+            <div key={aid} className={'hero-slide' + (i === slide ? ' is-active' : '')}>
+              <div className="slide-art-bg" style={{ backgroundImage: 'url(' + aid + ')' }} role="img" aria-label={i === slide ? 'Featured hero photograph' : ''} />
             </div>
           ))}
         </div>
@@ -78,15 +77,15 @@ export default function HomePage() {
 
         <div className="hero-inner">
           <div className="hero-copy">
-            <span className="eyebrow reveal" style={{ '--d': '.05s' }}>A Studio of Daily Magic</span>
-            <h1 className="hero-title reveal" style={{ '--d': '.15s' }}>MANDALA<br />MAGIC <span className="grad-gold serif-it">by OM</span></h1>
-            <p className="hero-sub reveal" style={{ '--d': '.3s' }}>Art created with intention.<br />Made to inspire your everyday life.</p>
-            <p className="hero-text reveal" style={{ '--d': '.45s' }}>Discover original Mandalas, digital landscapes and beautifully designed products inspired by Orchid Mandala's daily artistic practice.</p>
+            <span className="eyebrow reveal" style={{ '--d': '.05s' }}>ART &bull; SPIRIT &bull; INTENTION</span>
+            <h1 className="hero-title reveal" style={{ '--d': '.15s' }}>MANDALA&nbsp;MAGIC<span className="hero-byline serif-it">BY&nbsp;OM</span></h1>
+            <p className="hero-sub reveal" style={{ '--d': '.3s' }}>Art Created With Intention</p>
+            <p className="hero-text reveal" style={{ '--d': '.45s' }}>Discover original Mandalas, digital landscapes and beautiful products inspired by Orchid Mandala's daily artistic practice.</p>
             <div className="hero-ctas reveal" style={{ '--d': '.6s' }}>
-              <Link className="btn btn-royal magnetic" to="/gallery">Explore The Art <Svg d={ICONS.arrow} /></Link>
-              <Link className="btn btn-gold magnetic" to="/shop">SHOP THE COLLECTION</Link>
+              <Link className="btn btn-gold magnetic" to="/gallery">EXPLORE THE ART <Svg d={ICONS.arrow} /></Link>
+              <Link className="btn btn-ivory magnetic" to="/shop">SHOP THE COLLECTION <Svg d={ICONS.arrow} /></Link>
             </div>
-            <div className="hero-stats reveal" style={{ '--d': '.75s' }}>27+ YEARS · DAILY CREATION · ART WITH INTENTION</div>
+            <div className="hero-stats reveal" style={{ '--d': '.75s' }}>27+ YEARS &bull; DAILY CREATION &bull; ART WITH INTENTION</div>
           </div>
         </div>
 

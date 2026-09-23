@@ -30,7 +30,7 @@ const config = {
     port: parseInt(process.env.SMTP_PORT || '587', 10),
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || '',
-    from: process.env.SMTP_FROM || 'hello@mandalamagicbyom.com',
+    from: process.env.SMTP_FROM || 'support@mandalamagic.shop',
   },
   upload: {
     maxMb: parseInt(process.env.MAX_UPLOAD_SIZE_MB || '15', 10),

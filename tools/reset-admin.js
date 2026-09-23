@@ -9,7 +9,7 @@
 const bcrypt = require('bcryptjs');
 const { getDb } = require('../server/db');
 
-const email = (process.env.ADMIN_EMAIL || 'admin@mandalamagicbyom.com').trim().toLowerCase();
+const email = (process.env.ADMIN_EMAIL || 'support@mandalamagic.shop').trim().toLowerCase();
 const password = process.env.ADMIN_PASSWORD || 'admin123';
 const name = process.env.ADMIN_NAME || 'Orchid Mandala';
 

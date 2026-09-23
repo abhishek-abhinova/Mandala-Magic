@@ -101,7 +101,15 @@ function Shell() {
       }
     }
     window.scrollTo(0, 0);
-  }, [location.pathname, location.hash]);
+    if (ui.menuOpen) ui.setMenuOpen(false);
+  }, [location.pathname, location.hash, ui]);
+
+  useEffect(() => {
+    if (!ui.menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [ui.menuOpen]);
 
   useRouteAmbient(location.pathname);
 

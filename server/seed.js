@@ -171,7 +171,7 @@ function seedIfEmpty() {
 
   const bcrypt = require('bcryptjs');
   const configMatch = require('./config');
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@mandalamagicbyom.com';
+  const adminEmail = process.env.ADMIN_EMAIL || 'support@mandalamagic.shop';
   const adminPass = process.env.ADMIN_PASSWORD || (!configMatch.isDev ? 'changeme' : 'admin123');
   run('INSERT INTO users (name,email,password_hash,role) VALUES (?,?,?,?)', ['Orchid Mandala', adminEmail, bcrypt.hashSync(adminPass, 10), 'admin']);
   run('INSERT INTO users (name,email,password_hash,role) VALUES (?,?,?,?)', ['Stargazer Demo', 'customer@example.com', bcrypt.hashSync('customer123', 10), 'customer']);

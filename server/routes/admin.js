@@ -9,7 +9,7 @@ const analyticsRepo = require('../repos/analytics');
 const yoycol = require('../services/yoycol');
 const audit = require('../services/audit');
 const { requireRole, requireAuth } = require('../middleware/auth');
-const { upload, handleUploadError } = require('../middleware/upload');
+const { upload, heroUpload, handleUploadError } = require('../middleware/upload');
 const { asyncHandler } = require('../middleware/error');
 const { query, queryOne, run } = require('../db');
 
@@ -419,6 +419,43 @@ router.post('/upload', upload.single('file'), (req, res) => {
   audit.log(req.session.userId, 'upload', 'file', null, { url });
   res.json({ url });
 });
+
+// ---- Homepage hero settings (slide images, interval in seconds, video) ----
+router.get('/hero', (req, res) => {
+  let h = { items: [], interval: 5, video: '' };
+  try {
+    const raw = settingsRepo.get('hero');
+    if (raw) h = { ...h, ...JSON.parse(raw) };
+  } catch (e) { /* keep defaults */ }
+  res.json({
+    items: Array.isArray(h.items) ? h.items.filter(u => typeof u === 'string' && u.trim()) : [],
+    interval: Math.max(2, Math.min(30, +h.interval || 5)),
+    video: typeof h.video === 'string' ? h.video : '',
+  });
+});
+
+router.put('/hero', (req, res, next) => {
+  try {
+    const { items, interval, video } = req.body || {};
+    const safe = {
+      items: (Array.isArray(items) ? items : []).filter(u => typeof u === 'string' && u.trim()).map(u => u.trim()).slice(0, 12),
+      interval: Math.max(2, Math.min(30, parseInt(interval, 10) || 5)),
+      video: typeof video === 'string' ? video.trim() : '',
+    };
+    settingsRepo.set('hero', JSON.stringify(safe));
+    audit.log(req.session.userId, 'hero_update', 'settings');
+    res.json({ ok: true, ...safe });
+  } catch (e) { next(e); }
+});
+
+// Upload a hero slide image or background video (stored under assets/uploads/hero).
+router.post('/hero/upload', heroUpload.single('file'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+  const url = '/assets/uploads/hero/' + req.file.filename;
+  audit.log(req.session.userId, 'upload', 'file', null, { url });
+  res.json({ url });
+});
+
 router.use(handleUploadError);
 
 // ---- Collections ----

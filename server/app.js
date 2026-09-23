@@ -152,8 +152,8 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&am
 function nav(site) {
   const brandIcon = site.url + '/assets/img/logo-mark.svg';
   return `<header class="nav"><div class="nav-inner"><a class="nav-logo" href="/">
-<img class="nav-logo-mark" src="${brandIcon}" alt="Mandala Magic by OM mark">
-<span class="nav-logo-word">MANDALA&nbsp;MAGIC<small>BY&nbsp;OM</small></span></a>
+<img class="nav-logo-mark" src="${brandIcon}" alt="Mandala Magic by OM">
+</a>
 <nav class="nav-links" aria-label="Primary"><a href="/">Home</a><a href="/gallery">Art Gallery</a><a href="/shop">Shop</a><a href="/daily">Daily Mandala</a><a href="/collections">Collections</a></nav>
 <a class="btn btn-sm" href="/shop">Shop the Art</a></div></header>`;
 }

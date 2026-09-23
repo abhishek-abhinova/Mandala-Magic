@@ -19,8 +19,7 @@ export function Nav() {
     <nav className="nav" id="nav" aria-label="Main navigation">
       <div className="nav-inner">
         <Link className="nav-logo" to="/" aria-label="Mandala Magic by OM — Home">
-          <span className="nav-logo-mark" aria-hidden="true"><img src="/assets/img/logo-mark.svg" alt="" /></span>
-          <span className="nav-logo-word">MANDALA&nbsp;MAGIC<small>BY&nbsp;OM</small></span>
+          <span className="nav-logo-mark" aria-hidden="true"><img src="/assets/img/navlogo.png" alt="Mandala Magic by OM logo" /></span>
         </Link>
         <div className="nav-links">
           {NAV_LINKS.map(l => (
@@ -38,7 +37,14 @@ export function Nav() {
             <Svg d={ui.theme === 'dark' ? ICONS.sun : ICONS.moon} />
           </button>
           <Link className="btn btn-gold btn-sm nav-cta magnetic" to="/shop">Shop the Art</Link>
-          <button className="icon-btn burger" id="burgerBtn" aria-label="Open menu" aria-controls="mmenu" onClick={() => ui.setMenuOpen(o => !o)}>
+          <button
+            className={"icon-btn burger" + (ui.menuOpen ? ' is-open' : '')}
+            id="burgerBtn"
+            aria-label={ui.menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={ui.menuOpen}
+            aria-controls="mmenu"
+            onClick={() => ui.setMenuOpen(o => !o)}
+          >
             <Svg d={'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M3 6h18M3 12h18M9 18h12" stroke-linecap="round"/></svg>'} />
           </button>
         </div>
@@ -62,6 +68,7 @@ export function Footer() {
             <img src="/logo.png" alt="Mandala Magic by OM logo" />
             <p className="serif-it" style={{ color: 'var(--gold-light)', fontSize: '1.1rem' }}>“Art created with intention.”</p>
             <p>Twenty-seven years of Mandalas, landscapes and daily art — made to inspire your everyday life.</p>
+            <p style={{ marginTop: '1rem', fontSize: '.95rem' }}>Say hello at <a href="mailto:support@mandalamagic.shop" className="foot-email">support@mandalamagic.shop</a></p>
             <div className="foot-social">
               <a className="icon-btn" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><Svg d={ICONS.ig} /></a>
               <a className="icon-btn" href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><Svg d={ICONS.fb} /></a>
@@ -106,14 +113,14 @@ export function Footer() {
 
 export function Preloader() {
   const [gone, setGone] = useState(() => {
-    try { if (sessionStorage.getItem('mm_intro')) return true; } catch (e) {}
+    try { if (sessionStorage.getItem('mm_intro')) return true; } catch (e) { }
     return false;
   });
   React.useEffect(() => {
     if (gone) return;
     const fade = () => {
       setGone(true);
-      try { sessionStorage.setItem('mm_intro', '1'); } catch (e) {}
+      try { sessionStorage.setItem('mm_intro', '1'); } catch (e) { }
     };
     let t = setTimeout(fade, 1500);
     window.addEventListener('load', () => { clearTimeout(t); fade(); });

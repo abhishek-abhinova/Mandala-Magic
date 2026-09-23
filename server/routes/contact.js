@@ -28,7 +28,7 @@ router.post('/', asyncHandler(async (req, res) => {
     [payload.name, payload.email, payload.subject, payload.message]);
 
   email.send({
-    to: config.smtp.from || 'hello@mandalamagicbyom.com',
+    to: config.smtp.from || 'support@mandalamagic.shop',
     subject: `New message: ${payload.subject} — from ${payload.name}`,
     title: 'New Studio Message',
     body: `<p><strong>From:</strong> ${esc(payload.name)} &lt;${esc(payload.email)}&gt;</p>

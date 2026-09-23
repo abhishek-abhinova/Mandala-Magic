@@ -126,12 +126,17 @@ export async function loadCatalog() {
 }
 
 export async function loadHeroes() {
-  if (typeof fetch !== 'function') return [];
+  const empty = { items: [], interval: 5, video: '' };
+  if (typeof fetch !== 'function') return empty;
   try {
     const r = await fetch('/api/public/heroes');
-    const d = r.ok ? await r.json() : { items: [] };
-    return (d.items || []).map(u => (u.charAt(0) === '/' ? u.slice(1) : u));
-  } catch (e) { return []; }
+    const d = r.ok ? await r.json() : {};
+    return {
+      items: (d.items || []).map(u => (u.charAt(0) === '/' ? u.slice(1) : u)),
+      interval: +d.interval || 5,
+      video: d.video || '',
+    };
+  } catch (e) { return empty; }
 }
 
 /* Session + CSRF (used by the contact + store forms). */

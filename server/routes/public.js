@@ -7,6 +7,7 @@ const colRepo = require('../repos/collections');
 const wishRepo = require('../repos/wishlists');
 const cartRepo = require('../repos/cart');
 const usersRepo = require('../repos/users');
+const settingsRepo = require('../repos/settings');
 const { issueCsrf } = require('../middleware/security');
 
 const router = express.Router();
@@ -136,9 +137,25 @@ router.delete('/wishlist/:id', require('../middleware/auth').requireAuth, (req, 
   res.json({ ok: true });
 });
 
-// Homepage hero images. The studio drops hero1..heroN into assets/uploads/hero
-// and they show up automatically — the storefront never probes missing files.
+// Homepage hero slideshow. Slides, slide interval (seconds) and an optional
+// background video are configured in the admin panel (Site Settings → Hero) and
+// stored in the settings table. The legacy directory scan (hero1..heroN dropped
+// into assets/uploads/hero) remains as a fallback for unmanaged setups.
 router.get('/heroes', (req, res) => {
+  try {
+    const raw = settingsRepo.get('hero');
+    if (raw) {
+      const h = JSON.parse(raw);
+      const items = (Array.isArray(h.items) ? h.items : []).filter(u => typeof u === 'string' && u.trim());
+      if (items.length) {
+        return res.json({
+          items,
+          interval: Math.max(2, Math.min(30, +h.interval || 5)),
+          video: typeof h.video === 'string' ? h.video : '',
+        });
+      }
+    }
+  } catch (e) { /* fall back to the directory scan below */ }
   const dir = path.join(__dirname, '..', '..', 'assets', 'uploads', 'hero');
   const urls = [];
   if (fs.existsSync(dir)) {
@@ -152,7 +169,7 @@ router.get('/heroes', (req, res) => {
       if (urls.length === 6) break;
     }
   }
-  res.json({ items: urls });
+  res.json({ items: urls, interval: 5, video: '' });
 });
 
 module.exports = router;
